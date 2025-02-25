@@ -1,6 +1,8 @@
 package br.com.fiap.minhaidade
 
 import android.os.Bundle
+import android.util.Log
+import android.util.Log.*
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -19,6 +21,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -49,6 +53,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MeuComponente() {
+
+    var idade = remember {
+        mutableStateOf(0)
+    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -70,7 +79,7 @@ fun MeuComponente() {
         )
         Spacer(modifier = Modifier.height(25.dp))
         Text(
-            text = "25",
+            text = "${idade.value}",
             fontSize = 48.sp,
             color = Color.Red,
             textAlign = TextAlign.Center,
@@ -80,7 +89,9 @@ fun MeuComponente() {
         Row (horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()){
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    idade.value--
+                },
                 modifier = Modifier.size(84.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF487A60)),
                 shape = RectangleShape
@@ -89,7 +100,10 @@ fun MeuComponente() {
             }
             Spacer(modifier = Modifier.width(50.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    idade.value++
+                    Log.i("FIAP","Meu componente: {${idade.value}}")
+                },
                 modifier = Modifier.size(84.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2A6599)),
                 shape = RectangleShape
